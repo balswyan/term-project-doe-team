@@ -14,7 +14,7 @@ import Graph from './graph';
 import {
   LineChart, Line, Tooltip, AreaChart, Area, XAxis, YAxis, CartesianGrid, Brush, Legend,
 } from 'recharts';
-
+import ReactFileReader from 'react-file-reader';
 
 var temp1;
 var CCT = 0;
@@ -104,11 +104,25 @@ export default class SpectralData extends Component {
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     /*-------------------------------------------------------------CSV FILE CON-------------------------------------------------------------*/
+    
+    /*- unfinished work 10/4/2020 try to get the csv file from website
     function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {// 10/2/2020 unfinished todo: try to get the file data from button
-    const files = Array.from(e.target.files)
+    const files =  document.getElementById('add_file_button').files[0];
     console.log("files:", files)
     }
+    function readcsv(file) {
+        // Check if the file is a csv.
+        if (file.type && file.type.indexOf('text') === -1) {
+          console.log('File is not a text.', file.type, file);
+          return;
+        }
 
+        const reader = new FileReader();
+        reader.addEventListener('load', (event) => {
+          file.src = event.target.result;
+        });
+        reader.readAsDataURL(file);
+    }-*/
 
     /*-------------------------------------------------------------XYZ CIE Coordinates-------------------------------------------------------------*/
 
@@ -832,7 +846,7 @@ export default class SpectralData extends Component {
     return (
       <Form id='quickLookupPage'>
         <Header>Spectral Data: Quick SPD Graph Calculator</Header>
-        <Popup content='Data values for Spectral Distribution Graph. Enter wavelength: norm power, e.i. {\"273\": 0.000000000001, \"274\": 0.000000000001, \"275\": 0.000000000001}' trigger={<Button icon='info' size="mini" floated='left' circular={true} compact={true} color="blue" />} />
+        <Popup content='Data values for Spectral Distribution Graph. Enter wavelength: norm power, e.i. {\"400\": 0.000000000001, \"401\": 0.000000000001, \"402\": 0.000000000001}' trigger={<Button icon='info' size="mini" floated='left' circular={true} compact={true} color="blue" />} />
         <TextArea id="grabTextArea"
           rows={2}
           maxLength="10000000"
@@ -840,7 +854,8 @@ export default class SpectralData extends Component {
           label="Enter Spectral Data"
           placeholder="Enter as comma delimited list inside curly brackets"
           onChange={this.handleTheirTextInput}
-        /><input type="file" id='add_file_button' accept='.csv' onChange={this.handleFileSelected}/>
+        />
+          <input type="file" id='add_file_button' accept='.csv'/>
         <br /><br />
         <Button onClick={this.handleQucikSubmit} floated='left' >Submit</Button>
         <Button onClick={this.handleQucikSubmitRefresh} floated='left' >Clear</Button>

@@ -1133,14 +1133,14 @@ export default class Uploadpage extends Component {
 
                 <Form.Input
                   required
-                  label="Spectral Data"
+                  label="Spectral Data (Only wavelength data between 360 to 830 are acsepted anything beside this the app will crash)"
                 >
                   <TextArea
                     placeholder="Enter as comma delimited list inside curly brackets"
                     maxLength="10000000"
                     onChange={_ = (event) => { this.setState({ spectralDataState: event.target.value }); }}
                   />
-                  <span><Popup content='Data values for Spectral Distribution Graph. Enter wavelength: norm power, e.i. {\"273\": 0.000000000001, \"274\": 0.000000000001, \"275\": 0.000000000001}' trigger={<Button icon='info' size="mini" circular={true} compact={true} color="blue" />} /></span>
+                  <span><Popup content='Data values for Spectral Distribution Graph. Enter wavelength: norm power, e.i. {\"400\": 0.000000000001, \"401\": 0.000000000001, \"402\": 0.000000000001}' trigger={<Button icon='info' size="mini" circular={true} compact={true} color="blue" />} /></span>
                 </Form.Input>
 
                 <Form.Input required // 10/1/2020 add required
@@ -1161,60 +1161,6 @@ export default class Uploadpage extends Component {
                   onChange={_ = (event) => { this.setState({ volts: Number(event.target.value) }); }}
                 />
 
-                {/* --------------------------------------------------------------collapsable--------------------------------------------------------------- */}
-                <Accordion>
-                  <Accordion.Title
-                    active={activeIndex === 0}
-                    index={0}
-                    onClick={this.handleAccordianClick}
-                  >
-                    <Icon name='dropdown' />
-              Add additional information
-              </Accordion.Title>
-                  <Accordion.Content active={activeIndex === 0}>
-                    <Form.Input
-                      label="Catalog number:"
-                      type="text"
-                      onChange={_ = (event) => { this.setState({ catalogNumber: event.target.value }); }}
-                    />
-                    <Form.Input
-                      label="Document creator:"
-                      type="text"
-                      onChange={_ = (event) => { this.setState({ docCreat: event.target.value }); }}
-                    />
-                    <Form.Input
-                      label="Unique identifier:"
-                      type="text"
-                      onChange={_ = (event) => { this.setState({ uniqueIdent: event.target.value }); }}
-                    />
-                    <Form.Input
-                      label="Measurement equipment:"
-                      type="text"
-                      onChange={_ = (event) => { this.setState({ measureEquip: event.target.value }); }}
-                    />
-                    <Form.Input
-                      label="Laboratory:"
-                      type="text"
-                      onChange={_ = (event) => { this.setState({ labratory: event.target.value }); }}
-                    />
-                    <Form.Input
-                      label="Report number:"
-                      type="text"
-                      onChange={_ = (event) => { this.setState({ reportNum: event.target.value }); }}
-                    />
-                    <Form.Input
-                      label="Report date:"
-                      placeholder="2020-04-23 18:04:08"
-                      type="text"
-                      onChange={_ = (event) => { this.setState({ reportData: event.target.value }); }}
-                    />
-                    <Form.Input
-                      label="Comments:"
-                      type="text"
-                      onChange={_ = (event) => { this.setState({ comments: event.target.value }); }}
-                    />
-                  </Accordion.Content>
-                </Accordion>
               </div>
             </Form>
             <br />

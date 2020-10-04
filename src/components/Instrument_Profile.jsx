@@ -243,29 +243,6 @@ export default class InstProf extends Component {
                                 </Table>
 
 
-                                <Header className="headerForTable" size='medium'>Creation Information</Header>
-                                <Table fixed='true' size='small' celled>
-                                    <Table.Body>
-                                        <Table.Row>
-                                            <Table.Cell width='2'>Document Creator:</Table.Cell>
-                                            <Table.Cell width='2'>{this.props.s4}</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell width='2'>Laboratory:</Table.Cell>
-                                            <Table.Cell width='2'>{this.props.s5}</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell width='2'>Creation Date:</Table.Cell>
-                                            <Table.Cell width='2'>{this.props.s6}</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row>
-                                            <Table.Cell width='2'>Report Number: </Table.Cell>
-                                            <Table.Cell width='2'>{this.props.s7} </Table.Cell>
-                                        </Table.Row>
-                                    </Table.Body>
-                                </Table>
-
-
                                 <Header className="headerForTable" size='medium'>Calculations</Header>
 
                                 <Button className="headerForTable" onClick={_ = () => { this.setState({ doingCalculations: true }); }}>Reveal Calculations</Button>
