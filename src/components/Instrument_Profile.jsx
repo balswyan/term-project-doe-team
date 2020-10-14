@@ -129,8 +129,7 @@ export default class InstProf extends Component {
         fetch('http://localhost:4000/metrics')
             .then(response => response.json())
             .then(_ = (response) => {
-                //s00 is whichever id they are on
-                if (this.props.s00 === 0){
+                //s00 is whichever id they are ons
                     this.setState({ mrID: Object.values(response.data[this.props.s00])[0] })
                     this.setState({ mrlumens: Object.values(response.data[this.props.s00])[18] })
                     this.setState({ mrwatts: Object.values(response.data[this.props.s00])[19] })
@@ -152,31 +151,7 @@ export default class InstProf extends Component {
                     this.setState({ mrCRI_R7: Object.values(response.data[this.props.s00])[15] })
                     this.setState({ mrCRI_R8: Object.values(response.data[this.props.s00])[16] })
                     this.setState({ mrCRI: Object.values(response.data[this.props.s00])[17] })
-                }        
-                else{
-                   
-                this.setState({ mrID: Object.values(response.data[this.props.s00-1])[0] })
-                this.setState({ mrlumens: Object.values(response.data[this.props.s00-1])[18] })
-                this.setState({ mrwatts: Object.values(response.data[this.props.s00-1])[19] })
-                this.setState({ mrvolts: Object.values(response.data[this.props.s00-1])[20] })
-                this.setState({ mrcc_X: Object.values(response.data[this.props.s00-1])[1] })
-                this.setState({ mrcc_Y: Object.values(response.data[this.props.s00-1])[2] })
-                this.setState({ mrcc_Z: Object.values(response.data[this.props.s00-1])[3] })
-                this.setState({ mrCIEXY: Object.values(response.data[this.props.s00-1])[4] })
-                this.setState({ mrCCT: Object.values(response.data[this.props.s00-1])[5] })
-                this.setState({ mrFSI: Object.values(response.data[this.props.s00-1])[6] })
-                this.setState({ mrFSCI: Object.values(response.data[this.props.s00-1])[7] })
-                this.setState({ mrGAI: Object.values(response.data[this.props.s00-1])[8] })
-                this.setState({ mrCRI_R1: Object.values(response.data[this.props.s00-1])[9] })
-                this.setState({ mrCRI_R2: Object.values(response.data[this.props.s00-1])[10] })
-                this.setState({ mrCRI_R3: Object.values(response.data[this.props.s00-1])[11] })
-                this.setState({ mrCRI_R4: Object.values(response.data[this.props.s00-1])[12] })
-                this.setState({ mrCRI_R5: Object.values(response.data[this.props.s00-1])[13] })
-                this.setState({ mrCRI_R6: Object.values(response.data[this.props.s00-1])[14] })
-                this.setState({ mrCRI_R7: Object.values(response.data[this.props.s00-1])[15] })
-                this.setState({ mrCRI_R8: Object.values(response.data[this.props.s00-1])[16] })
-                this.setState({ mrCRI: Object.values(response.data[this.props.s00-1])[17] })
-                }
+                
                 
                 //metricResponder = JSON.parse(Object.values(response.data[this.props.s00])[6])
 

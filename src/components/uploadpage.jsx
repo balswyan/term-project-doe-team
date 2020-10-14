@@ -1096,7 +1096,7 @@ export default class Uploadpage extends Component {
                 </Form.Input>
 
                 <Form.Input required
-                  label="Application (ex.A-Type):"
+                  label="Application (ex. Decorative)" /*change ( ex.A-Type ) to (ex. Decorative ) 10/7/2020*/
                 >
                   <Dropdown
                     placeholder='Select application'
@@ -1108,7 +1108,7 @@ export default class Uploadpage extends Component {
                 </Form.Input>
 
                 <Form.Input required
-                  label="Type:"
+                  label="Type"
                 >
                   <Dropdown
                     placeholder='Select type'

@@ -55,7 +55,6 @@ export default class SpectralData extends Component {
     this.state = { QuickSpectralNumbers: '' }
     this.state = { quickFlag: false }
     this.state = { SpectralDataNumbersArray: [] }
-
     this.state = { mrID: '' }
     this.state = { mrlumens: '' }
     this.state = { mrwatts: '' }
@@ -77,6 +76,7 @@ export default class SpectralData extends Component {
     this.state = { mrCRI_R7: '' }
     this.state = { mrCRI_R8: '' }
     this.state = { mrCRI: '' }
+    this.fileInput = React.createRef();
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
