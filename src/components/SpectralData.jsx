@@ -14,8 +14,8 @@ import Graph from './graph';
 import {
   LineChart, Line, Tooltip, AreaChart, Area, XAxis, YAxis, CartesianGrid, Brush, Legend,
 } from 'recharts';
-import ReactFileReader from 'react-file-reader';
-
+import ReactFileReader from 'react-file-reader';//10/14/2020
+import CSVReader from 'react-csv-reader';//10/14/2020
 var temp1;
 var CCT = 0;
 var xCoord;
@@ -76,7 +76,8 @@ export default class SpectralData extends Component {
     this.state = { mrCRI_R7: '' }
     this.state = { mrCRI_R8: '' }
     this.state = { mrCRI: '' }
-    this.fileInput = React.createRef();
+    this.data =React.createRef();
+   
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -88,12 +89,21 @@ export default class SpectralData extends Component {
   handleTheirTextInput = (event) => {
     this.setState({ QuickSpectralNumbers: event.target.value + '' });
   }
+  /*-------------------------------------------------------------CSV FILE CON-------------------------------------------------------------*/
 
+  
+
+  handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    var files = Array.from(e.target.files);
+    this.data = files;
+  }
+
+  /*--------------------------------------------------------------------------------------------------------------------------------------*/
   handleQucikSubmit = () => {
     this.setState({ quickFlag: true });
     var temp1 = this.state.QuickSpectralNumbers;
     temp1 = temp1.replace(/\\/g, '')
-    //get rid of the slashes
+    //get rid of the slashes  
     var obj = JSON.parse(temp1);
     graphDataObject = Object(obj);
     for (var keyObj in graphDataObject) {
@@ -102,28 +112,6 @@ export default class SpectralData extends Component {
     }
     this.setState({ SpectralDataNumbersArray: finalGraphValuesArrayQuick })
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    /*-------------------------------------------------------------CSV FILE CON-------------------------------------------------------------*/
-    
-    /*- unfinished work 10/4/2020 try to get the csv file from website
-    function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {// 10/2/2020 unfinished todo: try to get the file data from button
-    const files =  document.getElementById('add_file_button').files[0];
-    console.log("files:", files)
-    }
-    function readcsv(file) {
-        // Check if the file is a csv.
-        if (file.type && file.type.indexOf('text') === -1) {
-          console.log('File is not a text.', file.type, file);
-          return;
-        }
-
-        const reader = new FileReader();
-        reader.addEventListener('load', (event) => {
-          file.src = event.target.result;
-        });
-        reader.readAsDataURL(file);
-    }-*/
-
     /*-------------------------------------------------------------XYZ CIE Coordinates-------------------------------------------------------------*/
 
     const arrSum = arr => arr.reduce((a, b) => a + b, 0)
@@ -835,8 +823,48 @@ export default class SpectralData extends Component {
 
   }
 
+  test = (event)=>{
+    function readSingleFile(e) {
+    var file = e.target.files[0];
+    if (!file) {
+      return;
+    }
 
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var contents = e.target.result;
+      displayContents(contents);
+      displayParsed(contents);
+    };
+    reader.readAsText(file);
+  }
 
+  function displayContents(contents) {
+    var element = document.getElementById('file-content');
+    element.textContent = contents.split('.');
+  }
+  
+  function displayParsed(contents) {
+    /*let re = /\d+\.\d+\,\d\,\d\.\d+/;*/
+    const element = document.getElementById('file-parsed');
+    /*const json = contents.matchAll(re);*/
+    const regexp = /[0123456789]+\,[0123456789]+\.[0123456789]+/;
+    
+    var t='';
+     t= JSON.stringify(contents);
+     /*const array = Array.from(t.split(regexp));*/
+     t=t.replaceAll(",",String.fromCharCode(92)+String.fromCharCode(34)+":");
+     t="{"+String.fromCharCode(92)+t.replaceAll(String.fromCharCode(92)+"r"+String.fromCharCode(92)+"n",","+String.fromCharCode(92)+String.fromCharCode(34))+"}";
+    
+    element.textContent=t;
+  }
+  
+  
+
+  document.getElementById('file-input').addEventListener('change', readSingleFile, false);
+  }
+
+  
 
 
 
@@ -855,7 +883,21 @@ export default class SpectralData extends Component {
           placeholder="Enter as comma delimited list inside curly brackets"
           onChange={this.handleTheirTextInput}
         />
-          <input type="file" id='add_file_button' accept='.csv'/>
+        <input type="file" id="file-input" onChange = {this.test} />
+
+        <h3>Raw contents of the file:</h3>
+        <pre id="file-content">No data yet.</pre>
+
+        <h3>Parsed file contents:</h3>
+        <pre id="file-parsed">No data yet.</pre>
+
+          <input
+            onClick={this.handleFileSelected}
+            ref={(dir) => { this.data = dir }}
+            type="file"
+          />
+          <h1>file:{this.data[0]}</h1>
+          
         <br /><br />
         <Button onClick={this.handleQucikSubmit} floated='left' >Submit</Button>
         <Button onClick={this.handleQucikSubmitRefresh} floated='left' >Clear</Button>
