@@ -7,6 +7,7 @@ import { thisTypeAnnotation } from "@babel/types";
 import _ from 'lodash'
 import { now, timeThursdays } from "d3";
 
+
 var temp1;
 var CCT = 0;
 var xCoord;
@@ -1036,6 +1037,69 @@ export default class Uploadpage extends Component {
   }
 
 
+  /*------------------------------------------------- CSV FUNCTONALITY --------------------------*/
+  CSVUpload = (event)=>{
+    function readSingleFile(e) {
+    var file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var contents = e.target.result;
+      /*displayParsed(contents); Used for "Test Purpose" to check if the the input is parsed in the correct way.*/
+      /*displayContents(contents); Used for "Test Purpose" to check if the the input is parsed in the correct way.*/
+      /*        Use the above with this to view the result: 
+      <h3>Raw contents of the file:</h3>
+        <pre id="file-content">No data yet.</pre>
+
+        <h3>Parsed file contents:</h3>
+        <pre id="file-parsed">No data yet.</pre> 
+      Put this below with the following line in the HTML code to input the result in the page:
+      <input type="file" id="file-input" onClick = {this.test} /> */
+      display_CSVData_in_Textare(contents);
+    };
+    reader.readAsText(file);
+  }
+
+  function displayContents(contents) {
+    var element = document.getElementById('file-content');
+    element.textContent = contents.split('.');
+  }
+  
+  function displayParsed(contents) {
+    /*let re = /\d+\.\d+\,\d\,\d\.\d+/;*/
+    const element = document.getElementById('file-parsed');
+    
+    /*const json = contents.matchAll(re);*/
+    /*const regexp = /[0123456789]+\,[0123456789]+\.[0123456789]+/;*/
+    
+    var t='';
+    t= JSON.stringify(contents);
+    /*const array = Array.from(t.split(regexp));*/
+    t=t.replaceAll(",",String.fromCharCode(92)+String.fromCharCode(34)+":");
+    t="{"+String.fromCharCode(92)+t.replaceAll(String.fromCharCode(92)+"r"+String.fromCharCode(92)+"n",","+String.fromCharCode(92)+String.fromCharCode(34))+"}";
+    t=t.substring(0, t.length-5)+"}"
+    element.textContent=t;
+  }
+  
+  function display_CSVData_in_Textare(contents){
+    const brackets = document.getElementById("grabTextArea");
+    var t='';
+    t= JSON.stringify(contents);
+    t=t.replaceAll(",",String.fromCharCode(92)+String.fromCharCode(34)+":");
+    t="{"+String.fromCharCode(92)+t.replaceAll(String.fromCharCode(92)+"r"+String.fromCharCode(92)+"n",","+String.fromCharCode(92)+String.fromCharCode(34))+"}";
+    t=t.substring(0, t.length-5)+"}"
+    brackets.value = t;
+  }
+
+  
+
+  document.getElementById('file-input').addEventListener('change', readSingleFile, false);
+
+  }
+
   render() {
     const { activeIndex } = this.state
     return (
@@ -1093,6 +1157,7 @@ export default class Uploadpage extends Component {
                     maxLength="255"
                     onChange={_ = (event) => { this.setState({ description: event.target.value }); }}
                   />
+
                 </Form.Input>
 
                 <Form.Input required
@@ -1136,13 +1201,15 @@ export default class Uploadpage extends Component {
                   label="Spectral Data (Only wavelength data between 360 to 830 are acsepted anything beside this the app will crash)"
                 >
                   <TextArea
+                    id="grabTextArea"
                     placeholder="Enter as comma delimited list inside curly brackets"
                     maxLength="10000000"
                     onChange={_ = (event) => { this.setState({ spectralDataState: event.target.value }); }}
                   />
+                  
                   <span><Popup content='Data values for Spectral Distribution Graph. Enter wavelength: norm power, e.i. {\"400\": 0.000000000001, \"401\": 0.000000000001, \"402\": 0.000000000001}' trigger={<Button icon='info' size="mini" circular={true} compact={true} color="blue" />} /></span>
                 </Form.Input>
-
+                <input type="file" id="file-input" onClick = {this.CSVUpload} />
                 <Form.Input required // 10/1/2020 add required
                   label="Lumens (lumens):"
                   type="text"

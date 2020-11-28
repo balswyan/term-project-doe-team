@@ -14,7 +14,10 @@ import Graph from './graph';
 import {
   LineChart, Line, Tooltip, AreaChart, Area, XAxis, YAxis, CartesianGrid, Brush, Legend,
 } from 'recharts';
-import ReactFileReader from 'react-file-reader';//10/14/2020
+
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 import CSVReader from 'react-csv-reader';//10/14/2020
 var temp1;
 var CCT = 0;
@@ -823,7 +826,7 @@ export default class SpectralData extends Component {
 
   }
   /*------------------------------------------------- CSV FUNCTONALITY --------------------------*/
-  test = (event)=>{
+  CSVUpload = (event)=>{
     function readSingleFile(e) {
     var file = e.target.files[0];
     if (!file) {
@@ -886,8 +889,19 @@ export default class SpectralData extends Component {
   }
 
   
-  /*----------------------------------------------------------------------------*/
-  
+  /*----------------------------------PDF EXPROT FUNCTION FOR CALCULATION PAGE---------------------------------------*/
+  jsPdfGenerator_cal = () => {
+        const input = document.getElementsByClassName('target')[0];
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('l', 'pt', 'a4');
+                pdf.addImage(imgData, 'JPEG', 20, 20, 710, 550);
+                pdf.save('Calculator.pdf');
+            })
+        //document.getElementsByClassName("inst-dropdown")[0].innerHTML = save;
+        return;
+    }
 
 
 
@@ -907,7 +921,7 @@ export default class SpectralData extends Component {
           onChange={this.handleTheirTextInput}
 
         />
-        <input type="file" id="file-input" onClick = {this.test} />
+        <input type="file" id="file-input" onClick = {this.CSVUpload} />
 
 
 
@@ -917,7 +931,12 @@ export default class SpectralData extends Component {
         <br /><br />
         <Divider />
         {this.state.quickFlag ?
-          <Segment>
+          <Segment className='target'>
+            <Dropdown className="inst-dropdown" closeOnChange={true} text='Export as'>
+                      <Dropdown.Menu>
+                          <Dropdown.Item onClick={this.jsPdfGenerator_cal} text='pdf' />
+                      </Dropdown.Menu>
+                  </Dropdown>
             <div>
               <Header id="quickGraphHeader">Lighting Metrics: </Header>
               <Table fixed='true' size='huge' celled>

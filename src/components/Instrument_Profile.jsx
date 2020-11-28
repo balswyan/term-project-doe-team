@@ -130,10 +130,12 @@ export default class InstProf extends Component {
             .then(response => response.json())
             .then(_ = (response) => {
                 //s00 is whichever id they are ons
-                    this.setState({ mrID: Object.values(response.data[this.props.s00])[0] })
+                    console.log(response)
+                    console.log(Object.values(response.data[this.props.s00]))
                     this.setState({ mrlumens: Object.values(response.data[this.props.s00])[18] })
                     this.setState({ mrwatts: Object.values(response.data[this.props.s00])[19] })
                     this.setState({ mrvolts: Object.values(response.data[this.props.s00])[20] })
+                    this.setState({ mrID: Object.values(response.data[this.props.s00])[0] })
                     this.setState({ mrcc_X: Object.values(response.data[this.props.s00])[1] })
                     this.setState({ mrcc_Y: Object.values(response.data[this.props.s00])[2] })
                     this.setState({ mrcc_Z: Object.values(response.data[this.props.s00])[3] })
@@ -181,7 +183,6 @@ export default class InstProf extends Component {
         return;
     }
     //<Graph className="theGraph"></Graph>
-
 
     render() {
 
