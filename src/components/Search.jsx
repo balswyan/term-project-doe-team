@@ -497,7 +497,47 @@ export default class Searching extends Component {
                     onChange={_ = (event, value) => {this.handleFilterChange(event.target.textContent)}}
                   />
             <Container>
-                  <Grid>
+                <Table celled>
+                  <Table.Header>
+                    <Table.Row>
+                      <Table.HeaderCell>
+                        Title
+                      </Table.HeaderCell>
+                      <Table.HeaderCell>
+                        Application
+                      </Table.HeaderCell>
+                      <Table.HeaderCell>
+                        Type
+                      </Table.HeaderCell>
+                      <Table.HeaderCell>
+                        Technology
+                      </Table.HeaderCell>
+                      <Table.HeaderCell>
+                        Link
+                      </Table.HeaderCell>
+                    </Table.Row>
+                  </Table.Header>
+                  <Table.Body>
+                    {results_for_table&&results_for_table.map(el=>(
+                      <Table.Row key={el.title+el.link}>
+                        <Table.Cell>{el.title}</Table.Cell>
+                        <Table.Cell>{el.application}</Table.Cell>
+                        <Table.Cell>{el.type}</Table.Cell>
+                        <Table.Cell>{el.technology}</Table.Cell>
+                        <Table.Cell>
+                          <button  onClick = {()=>{
+                            console.log(el.title);
+                            this.handleResultSelect_filter(el);
+                            }} >
+                            Click me
+                            </button>
+                          </Table.Cell>
+                      </Table.Row>
+                        
+                    ))}
+                  </Table.Body>
+                </Table>
+                  {/* <Grid>
                     <Grid.Row>
                       <Grid.Column>
                         <Header>Filtered Results</Header>
@@ -515,7 +555,7 @@ export default class Searching extends Component {
                         </List>
                       </Grid.Column>
                     </Grid.Row>
-                  </Grid>
+                  </Grid> */}
             </Container>
 
             
