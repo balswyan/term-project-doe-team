@@ -89,7 +89,7 @@ app.get('/lighting', (req, res) => {
 app.get('/users', (req, res) => {
   con.query('SELECT * FROM `USERS`', (err, results) => {
     if (err) {
-      return res.send(error);
+      return res.send(err);
     }
     else {
       console.log(results)// 9/24/2020 check user data feeback
@@ -120,7 +120,7 @@ app.post('/users', (req, result) => {
 app.get('/SpectralData', (req, res) => {
   con.query('SELECT * FROM `spectraldistributionfields`', (err, results) => {
     if (err) {
-      return res.send(error);
+      return res.send(err);
     }
     else {
       return res.json({
@@ -147,7 +147,7 @@ app.post('/SpectralData', (req, result) => {
 app.get('/metrics', (req, res) => {
   con.query('SELECT * FROM `metrics`', (err, results) => {
     if (err) {
-      return res.send(error);
+      return res.send(err);
     }
     else {
       return res.json({
