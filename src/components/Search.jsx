@@ -150,6 +150,86 @@ const typeOptions = [
     value: 'Choose any type'
   },
   {
+    key: 'Broadband',
+    text: 'Broadband',
+    value: 'Broadband'
+  },
+  {
+    key: 'CM',
+    text: 'CM',
+    value: 'CM'
+  },
+  {
+    key: 'Filtered',
+    text: 'Filtered',
+    value: 'Filtered'
+  },
+  {
+    key: 'Halogen',
+    text: 'Halogen',
+    value: 'Halogen'
+  },
+  {
+    key: 'HPS',
+    text: 'HPS',
+    value: 'HPS'
+  },
+  {
+    key: 'HY',
+    text: 'HY',
+    value: 'HY'
+  },
+  {
+    key: 'Krypton',
+    text: 'Krypton',
+    value: 'Krypton'
+  },
+  {
+    key: 'Mercury',
+    text: 'Mercury',
+    value: 'Mercury'
+  },
+  {
+    key: 'MH',
+    text: 'MH',
+    value: 'MH'
+  },
+  {
+    key: 'Narrowband',
+    text: 'Narrowband',
+    value: 'Narrowband'
+  },
+  {
+    key: 'Neodymium',
+    text: 'Neodymium',
+    value: 'Neodymium'
+  },
+  {
+    key: 'PC',
+    text: 'PC',
+    value: 'PC'
+  },
+  {
+    key: 'PC-Filter',
+    text: 'PC-Filter',
+    value: 'PC-Filter'
+  },
+  {
+    key: 'PC-NR',
+    text: 'PC-NR',
+    value: 'PC-NR'
+  },
+  {
+    key: 'Standard',
+    text: 'Standard',
+    value: 'Standard'
+  },
+  {
+    key: 'UN',
+    text: 'UN',
+    value: 'UN'
+  },
+  {
     key: 'Lamp',
     text: 'Lamp',
     value: 'Lamp'
@@ -184,9 +264,24 @@ const technologyOptions = [
     value: 'Choose any technology'
   },
   {
+    key: 'Fluorescent',
+    text: 'Fluorescent',
+    value: 'Fluorescent'
+  },
+  {
+    key: 'HID',
+    text: 'HID',
+    value: 'HID'
+  },
+  {
     key: 'Incandescent',
     text: 'Incandescent',
     value: 'Incandescent'
+  },
+  {
+    key: 'Laser Diode',
+    text: 'Laser Diode',
+    value: 'Laser Diode'
   },
   {
     key: 'LED',
@@ -194,15 +289,21 @@ const technologyOptions = [
     value: 'LED'
   },
   {
-    key: 'Fluorescent',
-    text: 'Fluorescent',
-    value: 'Fluorescent'
+    key: 'OLED',
+    text: 'OLED',
+    value: 'OLED'
   },
   {
     key: 'Other',
     text: 'Other',
     value: 'Other'
+  },
+  {
+    key: 'Plasma',
+    text: 'Plasma',
+    value: 'Plasma'
   }
+
 ]
 /*------------------------------*/
 
@@ -518,8 +619,8 @@ export default class Searching extends Component {
                     </Table.Row>
                   </Table.Header>
                   <Table.Body>
-                    {results_for_table&&results_for_table.map(el=>(
-                      <Table.Row key={el.title+el.link}>
+                    {this.state.results_for_table.map(el=>(
+                      <Table.Row key={el.SpectraSearchID}>
                         <Table.Cell>{el.title}</Table.Cell>
                         <Table.Cell>{el.application}</Table.Cell>
                         <Table.Cell>{el.type}</Table.Cell>
@@ -548,7 +649,6 @@ export default class Searching extends Component {
                                 
                                 <List.Content>{'Title: '}{el.title}{'| application: '}{el.application}{ '| type: '}{el.type}{'| technology: '}{el.technology}
                                 {'| link:'}<button  onClick = {()=>{console.log(el.title);this.handleResultSelect_filter(el);}} >Click me</button></List.Content>
-
                               </List.Item>
                             );
                           })}
