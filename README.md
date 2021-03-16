@@ -20,4 +20,4 @@ can access data and analytical information regarding lighting mechanism sources 
 accordingly.
  
 
-For more info and full breakdown of the project please check the [PDF](https://github.com/balswyan/senior-capstone-fall-2018/blob/master/Deliverables/Severino_AlSwyan_Capstone_Project_Report.pdf) attach under Deliverables. 
+For more info and full breakdown of the project please check the [PDF](https://github.com/balswyan/term-project-doe-team/blob/master/Documents%2C%20Presentations%20%26%20Media/AlSwyan_Chu_Horgan_Liao_DOE_FReport_CSC-450-650-2020F.pdf) attached under Documents, Presentations & Media folder. 
